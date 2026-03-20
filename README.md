@@ -114,7 +114,7 @@ const products = [
 ### Change Colors
 
 Update the Tailwind color classes in HTML files:
-- `bg-blue-600` - Primary color
+- `bg-emerald-600` - Primary color
 - `bg-gray-800` - Dark color
 - `text-white` - Text color
 
@@ -122,7 +122,7 @@ Update the Tailwind color classes in HTML files:
 
 Edit navbar in `renderNavbar()`:
 ```javascript
-<a href="index.html" class="text-2xl font-bold text-blue-600">
+<a href="index.html" class="text-2xl font-bold text-emerald-600">
     YourLogoHere
 </a>
 ```
@@ -132,7 +132,7 @@ Edit navbar in `renderNavbar()`:
 Edit the hero section in `index.html`:
 ```html
 <h1 class="text-5xl font-bold mb-4">Your Heading Here</h1>
-<p class="text-xl text-blue-100 mb-8">Your subheading here</p>
+<p class="text-xl text-emerald-100 mb-8">Your subheading here</p>
 ```
 
 ## 💾 Data Persistence

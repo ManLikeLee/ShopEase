@@ -129,7 +129,7 @@ function showToast(message, type = 'success') {
     const config = {
         success: { color: 'bg-green-500', icon: '✓' },
         error: { color: 'bg-red-500', icon: '✕' },
-        info: { color: 'bg-blue-500', icon: 'ℹ' }
+        info: { color: 'bg-emerald-500', icon: 'ℹ' }
     };
     
     const { color, icon } = config[type] || config.success;
@@ -226,29 +226,42 @@ function renderNavbar() {
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo -->
                     <div class="flex-shrink-0">
-                        <a href="index.html" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition">
+                        <a href="index.html" class="text-2xl font-bold text-emerald-600 hover:text-emerald-700 transition">
                             ShopEase
                         </a>
                     </div>
                     
                     <!-- Navigation Links -->
-                    <div class="flex space-x-6">
-                        <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium transition">
+                    <div class="flex items-center space-x-8">
+                        <a href="index.html" class="text-gray-700 hover:text-emerald-600 font-medium transition">
                             Home
                         </a>
-                        <a href="favorites.html" class="text-gray-700 hover:text-blue-600 font-medium transition relative">
-                            ♡ Favorites
-                            ${favCount > 0 ? `<span class="absolute -top-2 -right-3 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">${favCount}</span>` : ''}
+                        <a href="favorites.html" class="text-gray-700 hover:text-emerald-600 font-medium transition relative flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            Favorites
+                            ${favCount > 0 ? `<span class="absolute -top-2 -right-4 bg-emerald-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">${favCount}</span>` : ''}
                         </a>
-                        <a href="cart.html" class="text-gray-700 hover:text-blue-600 font-medium transition relative">
+                        <a href="cart.html" class="text-gray-700 hover:text-emerald-600 font-medium transition relative flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
                             Cart
-                            ${cartCount > 0 ? `<span class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">${cartCount}</span>` : ''}
+                            ${cartCount > 0 ? `<span class="absolute -top-2 -right-4 bg-emerald-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">${cartCount}</span>` : ''}
                         </a>
                     </div>
                 </div>
             </div>
         </nav>
     `;
+    
+    // Reinitialize Lucide icons for the navbar
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 }
 
 // ============================================
@@ -346,9 +359,11 @@ function renderProducts() {
     
     productsContainer.innerHTML = filtered.map(product => `
         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition transform hover:scale-105 relative">
-            <!-- Favorite Heart Icon -->
-            <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 text-2xl z-10 transition transform hover:scale-125" title="Add to favorites">
-                ${favorites.includes(product.id) ? '❤️' : '🤍'}
+            <!-- Favorite Heart Icon Button -->
+            <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 z-10 transition transform hover:scale-125 p-2 hover:bg-white/90 rounded-full" title="Add to favorites">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="${favorites.includes(product.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart text-emerald-600">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
             </button>
             
             <!-- Product Image -->
@@ -358,26 +373,31 @@ function renderProducts() {
             
             <!-- Product Info -->
             <div class="p-4">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h3>
-                <p class="text-gray-600 text-sm mb-3 line-clamp-2">${product.description}</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">${product.name}</h3>
+                <p class="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">${product.description}</p>
                 
                 <!-- Price -->
                 <div class="mb-4">
-                    <span class="text-2xl font-bold text-blue-600">$${formatPrice(product.price)}</span>
+                    <span class="text-xl font-bold text-emerald-600">$${formatPrice(product.price)}</span>
                 </div>
                 
                 <!-- Actions -->
                 <div class="flex gap-2">
-                    <button onclick="addToCart(${product.id})" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition">
+                    <button onclick="addToCart(${product.id})" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded transition transform hover:scale-105 shadow-md hover:shadow-lg">
                         Add to Cart
                     </button>
-                    <a href="product.html?id=${product.id}" class="flex-1 border border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded text-center transition">
+                    <a href="product.html?id=${product.id}" class="flex-1 border border-gray-300 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 font-semibold py-2 px-4 rounded text-center transition">
                         View
                     </a>
                 </div>
             </div>
         </div>
     `).join('');
+    
+    // Reinitialize Lucide icons after rendering
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 }
 
 // ============================================
@@ -474,8 +494,8 @@ function renderCartItems() {
     if (cart.length === 0) {
         cartContainer.innerHTML = `
             <div class="text-center py-12">
-                <p class="text-xl text-gray-500 mb-4">Your cart is empty</p>
-                <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition">
+                <p class="text-lg text-gray-500 mb-4 font-light">Your cart is empty</p>
+                <a href="index.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded transition transform hover:scale-105">
                     Continue Shopping
                 </a>
             </div>
@@ -493,25 +513,25 @@ function renderCartItems() {
             
             <!-- Product Details -->
             <div class="flex-1">
-                <h3 class="text-lg font-semibold text-gray-800">${item.name}</h3>
-                <p class="text-gray-600">$${formatPrice(item.price)}</p>
+                <h3 class="text-lg font-semibold text-gray-900">${item.name}</h3>
+                <p class="text-sm text-gray-500">$${formatPrice(item.price)}</p>
             </div>
             
             <!-- Quantity Controls -->
             <div class="flex items-center gap-2">
-                <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded text-center leading-8 transition">
+                <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded text-center leading-8 transition font-semibold text-gray-700">
                     −
                 </button>
-                <span class="w-8 text-center font-semibold">${item.quantity}</span>
-                <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded text-center leading-8 transition">
+                <span class="w-8 text-center font-semibold text-gray-900">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded text-center leading-8 transition font-semibold text-gray-700">
                     +
                 </button>
             </div>
             
             <!-- Item Total -->
             <div class="w-24 text-right">
-                <p class="font-bold text-gray-800">$${formatPrice(item.price * item.quantity)}</p>
-                <button onclick="removeFromCart(${item.id})" class="text-red-600 hover:text-red-800 text-sm font-medium transition">
+                <p class="font-bold text-gray-900">$${formatPrice(item.price * item.quantity)}</p>
+                <button onclick="removeFromCart(${item.id})" class="text-red-600 hover:text-red-800 text-xs font-semibold transition">
                     Remove
                 </button>
             </div>
@@ -561,7 +581,7 @@ function renderProductDetail() {
         productContainer.innerHTML = `
             <div class="text-center py-12">
                 <p class="text-xl text-gray-500 mb-4">Product not found</p>
-                <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition">
+                <a href="index.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded transition">
                     Back to Home
                 </a>
             </div>
@@ -578,19 +598,19 @@ function renderProductDetail() {
             
             <!-- Product Details -->
             <div class="flex flex-col justify-center">
-                <h1 class="text-4xl font-bold text-gray-800 mb-4">${product.name}</h1>
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4">${product.name}</h1>
                 
-                <p class="text-4xl font-bold text-blue-600 mb-6">$${formatPrice(product.price)}</p>
+                <p class="text-4xl font-bold text-emerald-600 mb-6">$${formatPrice(product.price)}</p>
                 
-                <p class="text-gray-600 text-lg mb-8 leading-relaxed">${product.description}</p>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed font-light">${product.description}</p>
                 
                 <!-- Add to Cart Button -->
-                <button onclick="addToCart(${product.id})" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg text-lg transition transform hover:scale-105 mb-4">
+                <button onclick="addToCart(${product.id})" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-4 px-6 rounded-lg text-lg transition transform hover:scale-105 mb-4 shadow-md hover:shadow-lg">
                     Add to Cart
                 </button>
                 
                 <!-- Continue Shopping Link -->
-                <a href="index.html" class="w-full border border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-bold py-3 px-6 rounded-lg text-center transition">
+                <a href="index.html" class="w-full border border-gray-300 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 font-semibold py-3 px-6 rounded-lg text-center transition">
                     Continue Shopping
                 </a>
             </div>
@@ -646,7 +666,7 @@ function handleCheckout(event) {
             
             <p class="text-gray-600 mb-6">A confirmation email has been sent to ${email}.</p>
             
-            <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition transform hover:scale-105">
+            <a href="index.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded transition transform hover:scale-105">
                 Continue Shopping
             </a>
         </div>
@@ -657,7 +677,7 @@ function handleCheckout(event) {
     updateCartUI();
     
     // Show success notification
-    showToast('Order placed successfully! 🎉', 'success');
+    showToast('Order placed successfully!', 'success');
     
     // Scroll to confirmation message
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -677,7 +697,7 @@ function renderFavoritesPage() {
         favContainer.innerHTML = `
             <div class="col-span-full text-center py-12">
                 <p class="text-xl text-gray-500 mb-4">No favorite products yet</p>
-                <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition">
+                <a href="index.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded transition">
                     Continue Shopping
                 </a>
             </div>
@@ -688,8 +708,10 @@ function renderFavoritesPage() {
     favContainer.innerHTML = favoriteProducts.map(product => `
         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition transform hover:scale-105 relative">
             <!-- Remove from Favorites Button -->
-            <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 text-2xl z-10 transition transform hover:scale-125" title="Remove from favorites">
-                ❤️
+            <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 z-10 transition transform hover:scale-125 p-2 hover:bg-white/90 rounded-full" title="Remove from favorites">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart text-emerald-600">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
             </button>
             
             <!-- Product Image -->
@@ -699,26 +721,31 @@ function renderFavoritesPage() {
             
             <!-- Product Info -->
             <div class="p-4">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h3>
-                <p class="text-gray-600 text-sm mb-3 line-clamp-2">${product.description}</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">${product.name}</h3>
+                <p class="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">${product.description}</p>
                 
                 <!-- Price -->
                 <div class="mb-4">
-                    <span class="text-2xl font-bold text-blue-600">$${formatPrice(product.price)}</span>
+                    <span class="text-xl font-bold text-emerald-600">$${formatPrice(product.price)}</span>
                 </div>
                 
                 <!-- Actions -->
                 <div class="flex gap-2">
-                    <button onclick="addToCart(${product.id})" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition">
+                    <button onclick="addToCart(${product.id})" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded transition transform hover:scale-105 shadow-md hover:shadow-lg">
                         Add to Cart
                     </button>
-                    <a href="product.html?id=${product.id}" class="flex-1 border border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded text-center transition">
+                    <a href="product.html?id=${product.id}" class="flex-1 border border-gray-300 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 font-semibold py-2 px-4 rounded text-center transition">
                         View
                     </a>
                 </div>
             </div>
         </div>
     `).join('');
+    
+    // Reinitialize Lucide icons after rendering
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 }
 
 /**
