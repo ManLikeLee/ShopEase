@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites - ShopEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeOutSlide {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-fadeInSlide {
+            animation: fadeInSlide 0.3s ease-out;
+        }
+        
+        .animate-fadeInScale {
+            animation: fadeInScale 0.4s ease-out;
+        }
+        
+        button {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar will be inserted here -->
+    <nav id="navbar"></nav>
+
+    <!-- Favorites Container -->
+    <div class="min-h-screen bg-gray-50 py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">My Favorites ♡</h1>
+            
+            <!-- Favorites Grid -->
+            <div id="favorites-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Favorite products will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

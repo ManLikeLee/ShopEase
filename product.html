@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ShopEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeOutSlide {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-fadeInSlide {
+            animation: fadeInSlide 0.3s ease-out;
+        }
+        
+        .animate-fadeInScale {
+            animation: fadeInScale 0.4s ease-out;
+        }
+        
+        button {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar will be inserted here -->
+    <nav id="navbar"></nav>
+
+    <!-- Product Detail Container -->
+    <div class="min-h-screen bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Back to Home Link -->
+            <a href="index.html" class="text-blue-600 hover:text-blue-800 font-medium mb-8 inline-block">
+                ← Back to Products
+            </a>
+            
+            <!-- Product Detail will be rendered here -->
+            <div id="product-detail" class="bg-white rounded-lg shadow-lg p-8">
+                <!-- Product content will be rendered by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

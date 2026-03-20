@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ShopEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeOutSlide {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-fadeInSlide {
+            animation: fadeInSlide 0.3s ease-out;
+        }
+        
+        .animate-fadeInScale {
+            animation: fadeInScale 0.4s ease-out;
+        }
+        
+        button {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar will be inserted here -->
+    <nav id="navbar"></nav>
+
+    <!-- Checkout Container -->
+    <div class="min-h-screen bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Checkout</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Checkout Form -->
+                <div class="lg:col-span-2">
+                    <div id="checkout-form-container" class="bg-white rounded-lg shadow-md p-8">
+                        <form id="checkout-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                                    placeholder="John Doe"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                                    placeholder="john@example.com"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label for="address" class="block text-gray-700 font-semibold mb-2">Delivery Address</label>
+                                <textarea 
+                                    id="address" 
+                                    name="address" 
+                                    rows="4"
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                                    placeholder="123 Main St, City, State 12345"
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105"
+                            >
+                                Place Order
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-20">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
+                        
+                        <!-- Items List -->
+                        <div id="checkout-items" class="mb-6 pb-6 border-b space-y-3">
+                            <!-- Items will be displayed here -->
+                        </div>
+                        
+                        <!-- Subtotal -->
+                        <div class="flex justify-between mb-4">
+                            <span class="text-gray-600">Subtotal:</span>
+                            <span class="font-semibold">$<span id="checkout-subtotal">0.00</span></span>
+                        </div>
+                        
+                        <!-- Shipping -->
+                        <div class="flex justify-between mb-4 pb-4 border-b">
+                            <span class="text-gray-600">Shipping:</span>
+                            <span class="font-semibold">Free</span>
+                        </div>
+                        
+                        <!-- Total -->
+                        <div class="flex justify-between text-lg">
+                            <span class="font-bold text-gray-800">Total:</span>
+                            <span class="font-bold text-blue-600">$<span id="checkout-total">0.00</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Display cart items in checkout summary
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const itemsContainer = document.getElementById('checkout-items');
+            
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p class="text-gray-500">Your cart is empty</p>';
+                document.getElementById('checkout-form').innerHTML = '<p class="text-gray-600">Please add items to your cart before checking out.</p>';
+                return;
+            }
+            
+            let total = 0;
+            itemsContainer.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                return `
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-700">${item.name} x${item.quantity}</span>
+                        <span class="font-semibold">$${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('checkout-subtotal').textContent = total.toFixed(2);
+            document.getElementById('checkout-total').textContent = total.toFixed(2);
+        });
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>

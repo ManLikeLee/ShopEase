@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom animations */
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeOutSlide {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-fadeInSlide {
+            animation: fadeInSlide 0.3s ease-out;
+        }
+        
+        .animate-fadeInScale {
+            animation: fadeInScale 0.4s ease-out;
+        }
+        
+        /* Smooth transitions */
+        button {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar will be inserted here -->
+    <nav id="navbar"></nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-4">Find Everything You Need</h1>
+            <p class="text-xl text-blue-100 mb-8">Quality products at your fingertips</p>
+            <a href="#products-section" class="inline-block bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition transform hover:scale-105">
+                Shop Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products-section" class="py-16 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Featured Products</h2>
+            
+            <!-- Search & Filter Panel -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Search Bar -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Search Products</label>
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Search by name or description..." 
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+                        >
+                    </div>
+                    
+                    <!-- Min Price Filter -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Min Price</label>
+                        <input 
+                            type="number" 
+                            id="min-price" 
+                            placeholder="$0" 
+                            min="0"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+                        >
+                    </div>
+                    
+                    <!-- Max Price Filter -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Max Price</label>
+                        <input 
+                            type="number" 
+                            id="max-price" 
+                            placeholder="$10000" 
+                            min="0"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+                        >
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Products will be rendered here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4 text-center">
+        <p>&copy; 2026 ShopEase. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
