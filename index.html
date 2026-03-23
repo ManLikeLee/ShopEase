@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopEase - Home</title>
+    <title>ShopEase - Premium Online Shopping</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * {
             font-family: 'Inter', sans-serif;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
         }
         
         html {
@@ -50,6 +54,17 @@
             }
         }
         
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .animate-fadeInSlide {
             animation: fadeInSlide 0.3s ease-out;
         }
@@ -58,9 +73,21 @@
             animation: fadeInScale 0.4s ease-out;
         }
         
-        /* Smooth transitions */
-        button {
-            transition: all 0.2s ease;
+        .animate-slideUp {
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        /* Button transitions */
+        button, a {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0px);
         }
 
         /* Icon alignment */
@@ -69,6 +96,16 @@
             align-items: center;
             gap: 0.5rem;
         }
+        
+        /* Product card elevation */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -76,61 +113,86 @@
     <nav id="navbar"></nav>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white py-24 px-6 md:px-12">
-        <div class="max-w-5xl mx-auto text-center">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">Find Everything You Need</h1>
-            <p class="text-lg md:text-xl text-emerald-100 mb-8 leading-relaxed font-light">Quality products at your fingertips</p>
-            <a href="#products-section" class="inline-block bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-8 rounded-xl transition transform hover:scale-105 shadow-xl hover:shadow-2xl">
-                Shop Now
-            </a>
+    <section class="bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 text-white py-24 md:py-32 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Left: Content -->
+                <div class="animate-slideUp">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight">Discover Your Next Essential</h1>
+                    <p class="text-xl text-emerald-50 mb-8 leading-relaxed font-light max-w-lg">Premium curated products handpicked just for you. From everyday essentials to premium finds, we have it all.</p>
+                    <a href="#products-section" class="inline-flex items-center justify-center bg-white text-emerald-700 hover:bg-gray-50 font-semibold py-4 px-8 rounded-xl transition-all duration-200 hover:scale-105 shadow-xl hover:shadow-2xl cursor-pointer">
+                        <span>Start Shopping</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Right: Visual Element -->
+                <div class="hidden md:block">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-3xl opacity-20 blur-3xl"></div>
+                        <div class="relative bg-emerald-500/30 backdrop-blur-sm rounded-3xl p-12 border border-white/20">
+                            <svg class="w-full h-auto text-white/80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="20" y="20" width="60" height="60" rx="8" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                                <path d="M50 20 L65 40 L65 60 L35 60 L35 40 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section id="products-section" class="py-20 px-6 md:px-12 bg-gray-50">
+    <section id="products-section" class="py-24 px-6 md:px-12 bg-gray-50">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-16 text-gray-900">Featured Products</h2>
+            <div class="mb-16 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">Featured Products</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Handpicked items from top brands. Updated daily with new arrivals.</p>
+            </div>
             
             <!-- Search & Filter Panel (Floating Card) -->
-            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 mb-12 max-w-5xl mx-auto -mt-16 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-16 max-w-5xl mx-auto -mt-20 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Search Bar -->
-                    <div>
-                        <label class="block text-gray-600 font-medium mb-2 text-sm">Search Products</label>
+                    <div class="animate-slideUp" style="animation-delay: 0.1s">
+                        <label class="block text-gray-700 font-semibold mb-3 text-sm">Search Products</label>
                         <div class="relative">
                             <input 
                                 type="text" 
                                 id="search-input" 
-                                placeholder="Search by name..." 
-                                class="w-full border border-gray-200 rounded-lg px-4 py-2 pl-10 shadow-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 transition"
+                                placeholder="Find your perfect product..." 
+                                class="w-full border border-gray-300 rounded-xl px-4 py-3 pl-11 shadow-sm hover:border-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
                             >
-                            <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-450" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
                     </div>
                     
                     <!-- Min Price Filter -->
-                    <div>
-                        <label class="block text-gray-600 font-medium mb-2 text-sm">Min Price</label>
+                    <div class="animate-slideUp" style="animation-delay: 0.2s">
+                        <label class="block text-gray-700 font-semibold mb-3 text-sm">Min Price</label>
                         <input 
                             type="number" 
                             id="min-price" 
                             placeholder="$0" 
                             min="0"
-                            class="w-full border border-gray-200 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 transition"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 shadow-sm hover:border-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
                         >
                     </div>
                     
                     <!-- Max Price Filter -->
-                    <div>
-                        <label class="block text-gray-600 font-medium mb-2 text-sm">Max Price</label>
+                    <div class="animate-slideUp" style="animation-delay: 0.3s">
+                        <label class="block text-gray-700 font-semibold mb-3 text-sm">Max Price</label>
                         <input 
                             type="number" 
                             id="max-price" 
-                            placeholder="$10000" 
+                            placeholder="$10,000" 
                             min="0"
-                            class="w-full border border-gray-200 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 transition"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-3 shadow-sm hover:border-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
                         >
                     </div>
                 </div>
@@ -144,27 +206,64 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16 px-6 md:px-12">
+    <footer class="bg-gray-950 text-white py-20 px-6 md:px-12">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <!-- Brand Section -->
                 <div>
-                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">ShopEase</h3>
-                    <p class="text-gray-400 leading-relaxed">Premium curated products for modern living. Quality, style, and convenience delivered to your doorstep.</p>
+                    <h3 class="text-2xl font-bold text-white mb-2">ShopEase</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">Premium curated products for modern living. Quality, style, and convenience delivered to your doorstep.</p>
+                    <!-- Social Icons -->
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20v-7.21H5.33V9.25h2.96V7.69c0-2.92 1.78-4.51 4.39-4.51 1.25 0 2.33.09 2.63.13v3.05h-1.81c-1.41 0-1.69.67-1.69 1.66V9.25h3.37l-.44 3.54h-2.93V20"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </a>
+                    </div>
                 </div>
                 
-                <!-- Links Section -->
-                <div class="flex flex-col space-y-2">
-                    <p class="text-sm font-semibold text-gray-300 mb-3">Quick Links</p>
-                    <a href="index.html" class="text-gray-400 hover:text-emerald-400 transition text-sm">Home</a>
-                    <a href="favorites.html" class="text-gray-400 hover:text-emerald-400 transition text-sm">Favorites</a>
-                    <a href="cart.html" class="text-gray-400 hover:text-emerald-400 transition text-sm">Shopping Cart</a>
+                <!-- Shop -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Shop</h4>
+                    <div class="flex flex-col space-y-3">
+                        <a href="index.html" class="text-gray-400 hover:text-emerald-400 transition text-sm">Home</a>
+                        <a href="#products-section" class="text-gray-400 hover:text-emerald-400 transition text-sm">New Arrivals</a>
+                        <a href="#products-section" class="text-gray-400 hover:text-emerald-400 transition text-sm">Best Sellers</a>
+                        <a href="favorites.html" class="text-gray-400 hover:text-emerald-400 transition text-sm">Favorites</a>
+                    </div>
+                </div>
+                
+                <!-- Support -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Support</h4>
+                    <div class="flex flex-col space-y-3">
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Help Center</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Shipping Info</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Returns</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Contact Us</a>
+                    </div>
+                </div>
+                
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-4">Legal</h4>
+                    <div class="flex flex-col space-y-3">
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Cookie Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition text-sm">Disclaimer</a>
+                    </div>
                 </div>
             </div>
             
             <!-- Divider -->
             <div class="border-t border-gray-800 pt-8">
-                <p class="text-sm text-gray-500 text-center">&copy; 2026 ShopEase. All rights reserved. Crafted with care.</p>
+                <p class="text-sm text-gray-500 text-center">&copy; 2026 ShopEase. All rights reserved. Crafted with care and modern design principles.</p>
             </div>
         </div>
     </footer>

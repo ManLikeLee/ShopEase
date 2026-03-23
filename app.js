@@ -221,36 +221,35 @@ function renderNavbar() {
     const favCount = getFavoritesCount();
     
     navElement.innerHTML = `
-        <nav class="bg-white shadow-md sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
+        <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="flex justify-between items-center h-20">
                     <!-- Logo -->
                     <div class="flex-shrink-0">
-                        <a href="index.html" class="text-2xl font-bold text-emerald-600 hover:text-emerald-700 transition">
+                        <a href="index.html" class="text-2xl font-bold text-emerald-600 hover:text-emerald-700 transition-colors duration-200 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6h2V7zm0 8h-2v2h2v-2z"/></svg>
                             ShopEase
                         </a>
                     </div>
                     
                     <!-- Navigation Links -->
-                    <div class="flex items-center space-x-8">
-                        <a href="index.html" class="text-gray-700 hover:text-emerald-600 font-medium transition">
-                            Home
-                        </a>
-                        <a href="favorites.html" class="text-gray-700 hover:text-emerald-600 font-medium transition relative flex items-center gap-2">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                    <div class="flex items-center space-x-10">
+                        <a href="index.html" class="text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-200 text-sm">Home</a>
+                        <a href="favorites.html" class="text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-200 text-sm relative flex items-center gap-2 group">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart group-hover:fill-emerald-600 transition-all duration-200">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                             </svg>
                             Favorites
-                            ${favCount > 0 ? `<span class="absolute -top-2 -right-4 bg-emerald-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">${favCount}</span>` : ''}
+                            ${favCount > 0 ? `<span class="absolute -top-3 -right-5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">${favCount}</span>` : ''}
                         </a>
-                        <a href="cart.html" class="text-gray-700 hover:text-emerald-600 font-medium transition relative flex items-center gap-2">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart">
+                        <a href="cart.html" class="text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-200 text-sm relative flex items-center gap-2 group">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart group-hover:text-emerald-600 transition-all duration-200">
                                 <circle cx="9" cy="21" r="1"></circle>
                                 <circle cx="20" cy="21" r="1"></circle>
                                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                             </svg>
                             Cart
-                            ${cartCount > 0 ? `<span class="absolute -top-2 -right-4 bg-emerald-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">${cartCount}</span>` : ''}
+                            ${cartCount > 0 ? `<span class="absolute -top-3 -right-5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">${cartCount}</span>` : ''}
                         </a>
                     </div>
                 </div>
@@ -358,35 +357,61 @@ function renderProducts() {
     }
     
     productsContainer.innerHTML = filtered.map(product => `
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition transform hover:scale-105 relative">
-            <!-- Favorite Heart Icon Button -->
-            <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 z-10 transition transform hover:scale-125 p-2 hover:bg-white/90 rounded-full" title="Add to favorites">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="${favorites.includes(product.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart text-emerald-600">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-            </button>
-            
-            <!-- Product Image -->
-            <div class="relative h-48 overflow-hidden bg-gray-200">
-                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+        <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+            <!-- Product Header with Favorite Button -->
+            <div class="relative">
+                <!-- Stock Badge -->
+                <div class="absolute top-3 left-3 z-10 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-green-200">
+                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span class="text-xs font-semibold text-green-700">In Stock</span>
+                </div>
+                
+                <!-- Favorite Button -->
+                <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 hover:scale-110" title="Add to favorites">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="${favorites.includes(product.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart transition-all duration-200 ${favorites.includes(product.id) ? 'text-emerald-600' : 'text-gray-400'}">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+                
+                <!-- Product Image -->
+                <div class="relative h-56 overflow-hidden bg-gray-200">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 ease-out">
+                </div>
             </div>
             
             <!-- Product Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-1">${product.name}</h3>
-                <p class="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">${product.description}</p>
+            <div class="p-6">
+                <!-- Category Tag -->
+                <div class="mb-2">
+                    <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Premium</span>
+                </div>
+                
+                <!-- Title -->
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 leading-tight">${product.name}</h3>
+                
+                <!-- Description -->
+                <p class="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">${product.description}</p>
+                
+                <!-- Rating -->
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="flex gap-0.5">
+                        ${[...Array(5)].map((_, i) => `<svg class="w-4 h-4 ${i < 4 ? 'text-amber-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`).join('')}
+                    </div>
+                    <span class="text-xs text-gray-500 font-medium">(24 reviews)</span>
+                </div>
                 
                 <!-- Price -->
-                <div class="mb-4">
-                    <span class="text-xl font-bold text-emerald-600">$${formatPrice(product.price)}</span>
+                <div class="mb-6">
+                    <span class="text-2xl font-bold text-emerald-600">$${formatPrice(product.price)}</span>
+                    <span class="text-sm text-gray-500 ml-2 line-through">$${(parseFloat(product.price) * 1.2).toFixed(2)}</span>
                 </div>
                 
                 <!-- Actions -->
-                <div class="flex gap-2">
-                    <button onclick="addToCart(${product.id})" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded transition transform hover:scale-105 shadow-md hover:shadow-lg">
+                <div class="flex gap-3">
+                    <button onclick="addToCart(${product.id})" class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95 cursor-pointer">
                         Add to Cart
                     </button>
-                    <a href="product.html?id=${product.id}" class="flex-1 border border-gray-300 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 font-semibold py-2 px-4 rounded text-center transition">
+                    <a href="product.html?id=${product.id}" class="flex-1 border-2 border-gray-200 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-xl text-center transition-all duration-200 cursor-pointer">
                         View
                     </a>
                 </div>
@@ -697,7 +722,7 @@ function renderFavoritesPage() {
         favContainer.innerHTML = `
             <div class="col-span-full text-center py-12">
                 <p class="text-xl text-gray-500 mb-4">No favorite products yet</p>
-                <a href="index.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded transition">
+                <a href="index.html" class="inline-block bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-200 hover:shadow-lg hover:scale-105">
                     Continue Shopping
                 </a>
             </div>
@@ -706,35 +731,61 @@ function renderFavoritesPage() {
     }
     
     favContainer.innerHTML = favoriteProducts.map(product => `
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition transform hover:scale-105 relative">
-            <!-- Remove from Favorites Button -->
-            <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 z-10 transition transform hover:scale-125 p-2 hover:bg-white/90 rounded-full" title="Remove from favorites">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart text-emerald-600">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-            </button>
-            
-            <!-- Product Image -->
-            <div class="relative h-48 overflow-hidden bg-gray-200">
-                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+        <div class="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+            <!-- Product Header with Favorite Button -->
+            <div class="relative">
+                <!-- Stock Badge -->
+                <div class="absolute top-3 left-3 z-10 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-green-200">
+                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span class="text-xs font-semibold text-green-700">In Stock</span>
+                </div>
+                
+                <!-- Favorite Button -->
+                <button onclick="toggleFavorite(${product.id})" class="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 hover:scale-110" title="Remove from favorites">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart text-emerald-600">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+                
+                <!-- Product Image -->
+                <div class="relative h-56 overflow-hidden bg-gray-200">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 ease-out">
+                </div>
             </div>
             
             <!-- Product Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-1">${product.name}</h3>
-                <p class="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">${product.description}</p>
+            <div class="p-6">
+                <!-- Category Tag -->
+                <div class="mb-2">
+                    <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Premium</span>
+                </div>
+                
+                <!-- Title -->
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 leading-tight">${product.name}</h3>
+                
+                <!-- Description -->
+                <p class="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">${product.description}</p>
+                
+                <!-- Rating -->
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="flex gap-0.5">
+                        ${[...Array(5)].map((_, i) => `<svg class="w-4 h-4 ${i < 4 ? 'text-amber-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`).join('')}
+                    </div>
+                    <span class="text-xs text-gray-500 font-medium">(24 reviews)</span>
+                </div>
                 
                 <!-- Price -->
-                <div class="mb-4">
-                    <span class="text-xl font-bold text-emerald-600">$${formatPrice(product.price)}</span>
+                <div class="mb-6">
+                    <span class="text-2xl font-bold text-emerald-600">$${formatPrice(product.price)}</span>
+                    <span class="text-sm text-gray-500 ml-2 line-through">$${(parseFloat(product.price) * 1.2).toFixed(2)}</span>
                 </div>
                 
                 <!-- Actions -->
-                <div class="flex gap-2">
-                    <button onclick="addToCart(${product.id})" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded transition transform hover:scale-105 shadow-md hover:shadow-lg">
+                <div class="flex gap-3">
+                    <button onclick="addToCart(${product.id})" class="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95 cursor-pointer">
                         Add to Cart
                     </button>
-                    <a href="product.html?id=${product.id}" class="flex-1 border border-gray-300 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 font-semibold py-2 px-4 rounded text-center transition">
+                    <a href="product.html?id=${product.id}" class="flex-1 border-2 border-gray-200 hover:border-emerald-600 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-xl text-center transition-all duration-200 cursor-pointer">
                         View
                     </a>
                 </div>
